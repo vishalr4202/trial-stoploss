@@ -25,5 +25,5 @@ app.use((error, req, res, next) => {
 });
 
 MongoConnect(() => {
-  app.listen(port, () => console.log(`Example app listening on port ${port}!, version 1`));
+  app.listen(port, () => console.log(`Example app listening on port ${port}!, version 2`));
 });

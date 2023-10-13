@@ -2,6 +2,7 @@ const User = require("../model/user");
 var KiteConnect = require("kiteconnect").KiteConnect;
 var KiteTicker = require("kiteconnect").KiteTicker;
 const logger = require('../logger/index')
+let orderPlaced = false;
 exports.ticksData = (req, res, next) => {
     const {
         price,
@@ -51,7 +52,7 @@ exports.ticksData = (req, res, next) => {
         return ordered;
     }
 
-    if((order == 'buy' && entry_type == 'CE') || (order == 'sell' && entry_type=='PE') || (entry_type == undefined  && exchange == 'NSE' && order=='buy')){
+    if((order == 'buy' && entry_type == 'CE') || (order == 'sell' && entry_type=='PE') || (entry_type == undefined  && exchange == 'NSE' && order=='buy' && orderPlaced == false)){
         logger.info('in request')
     const x = new Promise((resolve, reject) => {
         const data = email.map(async (ele, index) => {
@@ -121,6 +122,7 @@ exports.ticksData = (req, res, next) => {
 
     }).then(resp => {
         // console.log(arr, orderIds, tick_access, tick_api, inst_token,"in tickd")
+        orderPlaced = true;
         logger.info(arr, orderIds, tick_access, tick_api, inst_token,"in tickd")
         let lastPrice = 0
         let stopLoss = 0
@@ -234,6 +236,7 @@ exports.ticksData = (req, res, next) => {
                     }).then(res =>{
                         // console.log(res);
                         logger.info(`r${res},after sell`)
+                        orderPlaced = false;
                         return res
                     })
                     .catch(err => {
