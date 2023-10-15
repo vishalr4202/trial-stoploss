@@ -3,6 +3,7 @@ const express = require("express");
 const UserController = require("../controllers/auth");
 const UserActionController = require("../controllers/userActions");
 const TrialController = require("../controllers/trialControls");
+const ShyamController = require("../controllers/shyamendpoint");
 const UserSchema = require("../validations/validations");
 const IsAuth = require("../middlewares/isAuth");
 const getKeys = require("../middlewares/isAuth");
@@ -21,5 +22,6 @@ router.post("/getAccessToken", IsAuth, UserActionController.getAccessToken);
 router.post("/placeTrade", UserActionController.placeFirstTrade);
 router.post("/getAllUsers", UserActionController.getAllUsers);
 router.post("/ticksData", TrialController.ticksData)
+router.post("/shyamendpoint", ShyamController.shyampoints)
 
 module.exports = router;
