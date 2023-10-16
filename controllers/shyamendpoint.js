@@ -52,7 +52,7 @@ exports.shyampoints = (req, res, next) => {
         return ordered;
     }
 
-    if((order == 'buy' && entry_type == 'CE') || (order == 'sell' && entry_type=='PE') || (entry_type == undefined  && exchange == 'NSE' && order=='buy' && orderPlaced == false)){
+    if((order == 'buy' && entry_type == 'CE' && orderPlaced == false) || (order == 'sell' && entry_type=='PE' && orderPlaced == false) || (entry_type == undefined  && exchange == 'NSE' && order=='buy' && orderPlaced == false)){
         logger.info('in request')
     const x = new Promise((resolve, reject) => {
         const data = email.map(async (ele, index) => {
