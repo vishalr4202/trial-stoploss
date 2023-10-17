@@ -15,7 +15,8 @@ exports.ticksData = (req, res, next) => {
         lossPrice,
         profitPrice,
         date,
-        order
+        order,
+        primary
     } = req.body;
 
     var ticker;
@@ -61,7 +62,8 @@ exports.ticksData = (req, res, next) => {
                 secretkey = result.secret_key;
                 access_token = result.access_token;
                 arr.push(ele)
-                if (index == 0) {
+                if (ele == primary) {
+                    console.log(ele," selected api key")
                     tick_api = result.api_key
                     tick_access = result.access_token
                     // console.log("in user 1", tick_api, index)
@@ -95,7 +97,8 @@ exports.ticksData = (req, res, next) => {
             .then((res) => {
                 // console.log("buy order placed");
                 logger.info("buy order placed")
-                if(index === 0){
+                if(ele == primary){
+                    console.log(ele," selected mail")
                     return kc
                     .getOrderHistory(res)
                     .then((res) => {
